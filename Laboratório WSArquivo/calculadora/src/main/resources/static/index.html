@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Web</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px #eee; }
+        input { margin-bottom: 10px; width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px; margin: 2px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Calculadora Spring</h2>
+        <input type="number" id="n1" placeholder="Número 1">
+        <input type="number" id="n2" placeholder="Número 2">
+        <br>
+        <button onclick="calcular('somar')">Somar</button>
+        <button onclick="calcular('subtrair')">Subtrair</button>
+        <button onclick="calcular('multiplicar')">Multiplicar</button>
+        <button onclick="calcular('dividir')">Dividir</button>
+        <h3 id="resultado">Resultado: </h3>
+    </div>
+
+    <script>
+        function calcular(operacao) {
+            const n1 = document.getElementById('n1').value;
+            const n2 = document.getElementById('n2').value;
+            if(!n1 || !n2) return alert("Digite os números!");
+
+            fetch(`/${operacao}/${n1}/${n2}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('resultado').innerText = data;
+                });
+        }
+    </script>
+</body>
+</html>
